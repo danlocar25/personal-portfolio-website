@@ -3539,7 +3539,7 @@ img {
   }
 }
 
-@media (max-width: 760px) {
+@media (max-width: 1023px) {
   .app-shell {
     display: block;
     min-height: 100svh;
@@ -4197,7 +4197,7 @@ img {
   }
 }
 
-@media (max-width: 760px) {
+@media (max-width: 1023px) {
   .mascot-pet {
     right: 12px;
     bottom: calc(88px + env(safe-area-inset-bottom));
