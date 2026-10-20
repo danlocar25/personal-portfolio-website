@@ -3,7 +3,6 @@ import {
   ArrowRight,
   Code2,
   Database,
-  Layers3,
   Play,
   Smartphone,
   Wifi,
@@ -18,35 +17,35 @@ const layers: {
   icon: LucideIcon
 }[] = [
   {
-    title: 'App UI',
-    summary: 'Collect input and show clear status to the operator.',
+    title: 'Client UI',
+    summary: 'Deliver responsive interfaces on Android, iOS, or Web.',
     details:
-      'The screen presents a focused task, such as adding an item or confirming a payment, and reflects the latest app state.',
-    tools: ['Android UI', 'Jetpack Compose', 'XML layouts'],
+      'Primary focus on commercial Android UI with Jetpack Compose and XML layouts, alongside iOS mobile screens and interactive web interfaces.',
+    tools: ['Android UI', 'Jetpack Compose', 'iOS & Web UI'],
     icon: Smartphone,
   },
   {
-    title: 'ViewModel',
+    title: 'ViewModel & Logic',
     summary: 'Keep screen state and business actions organized.',
     details:
-      'An MVVM boundary keeps interface code manageable while coroutines and Flow handle asynchronous updates.',
+      'An MVVM boundary keeps presentation code clean while Kotlin Coroutines, Flow, and modular logic manage asynchronous updates.',
     tools: ['MVVM', 'Kotlin Coroutines', 'Kotlin Flow'],
     icon: Code2,
   },
   {
     title: 'Data layer',
-    summary: 'Coordinate local records and remote services.',
+    summary: 'Coordinate local records and remote databases.',
     details:
-      'Local persistence and network calls give the app a clear place to read, update, and reconcile business data.',
-    tools: ['Room / SQLite', 'REST APIs', 'MySQL'],
+      'Local persistence on Android and relational backend databases provide a dependable foundation for reading, syncing, and reconciling data.',
+    tools: ['Room / SQLite', 'MySQL / PostgreSQL', 'REST APIs'],
     icon: Database,
   },
   {
     title: 'Integrations',
-    summary: 'Connect the app to services and physical devices.',
+    summary: 'Connect apps to third-party APIs and POS hardware.',
     details:
-      'The app can exchange data with backend services and work with peripherals such as printers, scanners, and payment devices.',
-    tools: ['Retrofit', 'RabbitMQ', 'POS hardware'],
+      'Applications exchange live data with booking, mall, and backend systems while driving physical POS peripherals like printers, scanners, and payment terminals.',
+    tools: ['Retrofit & OkHttp', 'RabbitMQ', 'POS hardware'],
     icon: Wifi,
   },
 ]
@@ -68,17 +67,20 @@ export function ArchitectureExplorer() {
     return () => window.clearInterval(interval)
   }, [tracing])
 
-  const activeLayer = layers[selected]
+  const activeLayer = layers[selected] ?? layers[0]!
 
   return (
-    <section className="architecture-explorer" aria-labelledby="architecture-title">
+    <section
+      className="architecture-explorer"
+      aria-labelledby="architecture-title"
+    >
       <div className="architecture-heading">
         <div>
           <span className="tiny-label">HOW THE PIECES CONNECT</span>
           <h2 id="architecture-title">Trace a mobile transaction.</h2>
           <p>
-            A conceptual Android POS flow, based on the patterns and integrations
-            I work with.
+            A conceptual Android POS flow, based on the patterns and
+            integrations I work with.
           </p>
         </div>
         <button
@@ -103,7 +105,10 @@ export function ArchitectureExplorer() {
         </button>
       </div>
 
-      <div className="architecture-flow" aria-label="Mobile app architecture flow">
+      <div
+        className="architecture-flow"
+        aria-label="Mobile app architecture flow"
+      >
         {layers.map((layer, index) => {
           const Icon = layer.icon
           return (
@@ -117,7 +122,9 @@ export function ArchitectureExplorer() {
                   setSelected(index)
                 }}
               >
-                <span className="architecture-node-icon"><Icon size={19} /></span>
+                <span className="architecture-node-icon">
+                  <Icon size={19} />
+                </span>
                 <span className="architecture-node-index">0{index + 1}</span>
                 <strong>{layer.title}</strong>
                 <small>{layer.summary}</small>
@@ -135,18 +142,28 @@ export function ArchitectureExplorer() {
         })}
       </div>
 
-      <div className="architecture-detail" aria-live="polite" aria-atomic="true">
+      <div
+        className="architecture-detail"
+        aria-live="polite"
+        aria-atomic="true"
+      >
         <div className="architecture-detail-copy">
           <span className="tiny-label">LAYER 0{selected + 1}</span>
           <h3>{activeLayer.title}</h3>
           <p>{activeLayer.details}</p>
         </div>
-        <div className="architecture-tools" aria-label={`${activeLayer.title} tools`}>
-          {activeLayer.tools.map((tool) => <span key={tool}>{tool}</span>)}
+        <div
+          className="architecture-tools"
+          aria-label={`${activeLayer.title} tools`}
+        >
+          {activeLayer.tools.map((tool) => (
+            <span key={tool}>{tool}</span>
+          ))}
         </div>
       </div>
       <p className="architecture-note">
-        Architecture concept for illustration; each product’s implementation varies.
+        Architecture concept for illustration; each product’s implementation
+        varies.
       </p>
     </section>
   )

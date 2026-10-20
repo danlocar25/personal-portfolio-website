@@ -1,9 +1,8 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   ArrowRight,
   ArrowUpRight,
   Award,
-  Contact,
   BriefcaseBusiness,
   Check,
   ChevronDown,
@@ -12,6 +11,7 @@ import {
   Download,
   ExternalLink,
   Github,
+  Globe,
   GraduationCap,
   Home,
   Layers3,
@@ -19,12 +19,10 @@ import {
   Mail,
   MapPin,
   Moon,
-  Search,
   Smartphone,
   Sparkles,
   Sun,
   Wifi,
-  X,
 } from 'lucide-react'
 import { useTheme } from '../hooks/useTheme'
 import { profile } from '../data/profile'
@@ -32,9 +30,7 @@ import { projects } from '../data/projects'
 import { experiences } from '../data/experience'
 import { skillGroups } from '../data/skills'
 import { education, certifications } from '../data/education'
-import { CommandPalette } from '../components/CommandPalette'
-import { PlatformPlayground } from '../components/PlatformPlayground'
-import { ArchitectureExplorer } from '../components/ArchitectureExplorer'
+import { MascotPet } from '../components/MascotPet'
 
 const tabs = [
   { id: 'home', label: 'Home', icon: Home },
@@ -113,60 +109,34 @@ function ScreenHeading({
 }
 
 function HomeScreen() {
-  const [visitorPath, setVisitorPath] = useState<
-    'hiring' | 'builder' | 'curious'
-  >('builder')
-  const routes = {
-    hiring: {
-      title: 'Hiring someone for a mobile team?',
-      description:
-        'Start with my day-to-day work, then reach out if the fit looks right.',
-      links: [
-        { screen: 'work' as Screen, label: 'Review experience' },
-        { screen: 'profile' as Screen, label: 'Get in touch' },
-      ],
-    },
-    builder: {
-      title: 'Building a mobile product yourself?',
-      description:
-        'Explore the tools I use and a project that puts them to work.',
-      links: [
-        { screen: 'stack' as Screen, label: 'Explore the toolkit' },
-        { screen: 'projects' as Screen, label: 'See a project' },
-      ],
-    },
-    curious: {
-      title: 'Just curious about what I make?',
-      description:
-        'Take a quick tour through a project and the person behind it.',
-      links: [
-        { screen: 'projects' as Screen, label: 'Browse projects' },
-        { screen: 'profile' as Screen, label: 'Meet Dan Carlo' },
-      ],
-    },
-  }
-  const activeRoute = routes[visitorPath]
-
   return (
     <div className="screen-content home-screen">
       <div className="home-intro">
         <div>
           <span className="welcome-label">
-            <Sparkles size={15} /> WELCOME TO MY SPACE
+            <Sparkles size={15} /> SOFTWARE ENGINEER · ANDROID DEVELOPER
           </span>
           <h1>
-            Building for
+            Software Engineer for
             <br />
-            <span>Android &amp; iOS.</span>
+            <span>Android, iOS &amp; Web.</span>
           </h1>
           <p>
-            Hey, I’m Dan Carlo. I build reliable mobile software, from platform
-            experiences to shared-code apps with Kotlin Multiplatform and
-            React Native.
+            Hey, I’m Dan Carlo—a Software Engineer with{' '}
+            <strong>Android development</strong> as my primary specialization
+            and current full-time professional experience. Alongside commercial
+            Android systems, I also build <strong>iOS mobile apps</strong> and{' '}
+            <strong>websites</strong>.
           </p>
+          <div className="hero-glass-pills" aria-label="Core platforms">
+            <span>Android</span>
+            <span>Kotlin &amp; Java</span>
+            <span>iOS Mobile Apps</span>
+            <span>Websites &amp; Web Apps</span>
+          </div>
           <div className="home-actions">
-            <AppLink screen="projects" className="primary-action">
-              Explore my work <ArrowUpRight size={18} />
+            <AppLink screen="work" className="primary-action">
+              View experience <ArrowUpRight size={18} />
             </AppLink>
             <a
               className="text-action"
@@ -179,63 +149,19 @@ function HomeScreen() {
         </div>
         <div className="home-portrait">
           <div className="portrait-orbit" />
+          <div className="portrait-glass-halo" />
           <img src="/profile.webp" alt="Dan Carlo Magpantay" />
+          <span
+            className="portrait-floating-chip chip-top-left"
+            aria-hidden="true"
+          >
+            <Smartphone size={13} /> Android · iOS · Web
+          </span>
           <span className="portrait-tag">
             <span className="online-dot" /> Open to opportunities
           </span>
         </div>
       </div>
-      <section className="home-pathfinder" aria-labelledby="pathfinder-title">
-        <div className="pathfinder-topline">
-          <div>
-            <span className="tiny-label">A QUICK WAY IN</span>
-            <h2 id="pathfinder-title">What brings you here?</h2>
-          </div>
-          <div
-            className="pathfinder-options"
-            role="group"
-            aria-label="Choose a portfolio route"
-          >
-            <button
-              type="button"
-              aria-pressed={visitorPath === 'hiring'}
-              className={visitorPath === 'hiring' ? 'active' : ''}
-              onClick={() => setVisitorPath('hiring')}
-            >
-              Hiring
-            </button>
-            <button
-              type="button"
-              aria-pressed={visitorPath === 'builder'}
-              className={visitorPath === 'builder' ? 'active' : ''}
-              onClick={() => setVisitorPath('builder')}
-            >
-              Building an app
-            </button>
-            <button
-              type="button"
-              aria-pressed={visitorPath === 'curious'}
-              className={visitorPath === 'curious' ? 'active' : ''}
-              onClick={() => setVisitorPath('curious')}
-            >
-              Just curious
-            </button>
-          </div>
-        </div>
-        <div className="pathfinder-route" aria-live="polite">
-          <div>
-            <h3>{activeRoute.title}</h3>
-            <p>{activeRoute.description}</p>
-          </div>
-          <div className="pathfinder-links">
-            {activeRoute.links.map((link) => (
-              <AppLink key={link.screen} screen={link.screen}>
-                {link.label} <ArrowUpRight size={15} />
-              </AppLink>
-            ))}
-          </div>
-        </div>
-      </section>
       <div className="dashboard-grid">
         <AppLink screen="work" className="dashboard-card work-card">
           <div className="card-top">
@@ -244,15 +170,15 @@ function HomeScreen() {
             </span>
             <ArrowUpRight size={20} />
           </div>
-          <span className="card-kicker">WHAT I DO</span>
+          <span className="card-kicker">EXPERIENCE</span>
           <h2>
-            Software for the
+            Android at the core.
             <br />
-            real world.
+            Mobile &amp; web ready.
           </h2>
           <p>
-            Mobile products for Android and iOS, with dependable business
-            integrations and connected hardware.
+            Full-time Android Developer building commercial POS systems and
+            integrations, with experience in web and cross-platform apps.
           </p>
           <span className="card-footer">
             Explore experience <ArrowRight size={17} />
@@ -285,25 +211,17 @@ function HomeScreen() {
             </span>
             <ArrowUpRight size={20} />
           </div>
-          <span className="card-kicker">MY TOOLKIT</span>
-          <h2>Built with purpose.</h2>
+          <span className="card-kicker">TECH STACK</span>
+          <h2>Android, iOS &amp; Web.</h2>
           <div className="stack-chips">
-            <span>Kotlin Multiplatform</span>
-            <span>React Native</span>
-            <span>Android</span>
+            <span>Kotlin &amp; Java</span>
+            <span>Android SDK</span>
             <span>iOS</span>
+            <span>React &amp; Web</span>
           </div>
           <span className="card-footer">
             See the stack <ArrowRight size={17} />
           </span>
-        </AppLink>
-      </div>
-      <div className="home-bottom">
-        <span>
-          <span className="online-dot" /> Android · iOS · Cross-platform
-        </span>
-        <AppLink screen="profile">
-          Get to know me <ArrowUpRight size={16} />
         </AppLink>
       </div>
     </div>
@@ -312,102 +230,25 @@ function HomeScreen() {
 
 function WorkScreen() {
   const [expanded, setExpanded] = useState<string | null>(null)
-  const [query, setQuery] = useState('')
-  const searchTerm = query.trim().toLowerCase()
-  const filteredExperiences = experiences
-    .map((item, index) => ({
-      item,
-      index,
-      contributions: searchTerm
-        ? item.contributions.filter((contribution) =>
-            contribution.toLowerCase().includes(searchTerm),
-          )
-        : expanded === item.company
-          ? item.contributions
-          : item.contributions.slice(0, 4),
-    }))
-    .filter(({ contributions }) => !searchTerm || contributions.length > 0)
-  const timelineExperiences = [...filteredExperiences].reverse()
-
-  function jumpToRole(company: string, index: number) {
-    setExpanded(company)
-    window.requestAnimationFrame(() => {
-      const role = document.getElementById(`work-role-${index}`)
-      if (!role) return
-      role.scrollIntoView({
-        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches
-          ? 'auto'
-          : 'smooth',
-        block: 'start',
-      })
-      role.focus({ preventScroll: true })
-    })
-  }
 
   return (
     <div className="screen-content">
       <ScreenHeading
         eyebrow="EXPERIENCE / 01"
-        title="Work in the wild."
-        description="Building dependable mobile software and integrations where the details matter."
+        title="Work experience."
+        description="Currently working full-time as an Android Developer engineering commercial POS systems and integrations, alongside prior experience building web software."
       />
-      <div className="experience-search">
-        <Search size={18} aria-hidden="true" />
-        <input
-          type="search"
-          value={query}
-          onChange={(event) => setQuery(event.target.value)}
-          aria-label="Search work contributions"
-          placeholder="Find a contribution: APIs, POS, hardware…"
-        />
-        {query && (
-          <button
-            type="button"
-            onClick={() => setQuery('')}
-            aria-label="Clear search"
-          >
-            <X size={17} />
-          </button>
-        )}
-        <span className="experience-search-count">
-          {searchTerm
-            ? `${filteredExperiences.length} ${filteredExperiences.length === 1 ? 'role' : 'roles'}`
-            : 'Search all roles'}
-        </span>
-      </div>
-      {timelineExperiences.length > 0 && (
-        <section className="career-timeline" aria-label="Career timeline">
-          <div className="career-timeline-heading">
-            <span className="tiny-label">CAREER TIMELINE</span>
-            <span>Choose a role to jump to its details</span>
-          </div>
-          <div className="career-timeline-track">
-            {timelineExperiences.map(({ item, index }) => (
-              <button
-                className={`career-milestone ${index === 0 ? 'current' : ''}`}
-                key={item.company}
-                type="button"
-                aria-label={`Jump to ${item.role} at ${item.company}`}
-                onClick={() => jumpToRole(item.company, index)}
-              >
-                <span className="milestone-dot" />
-                <span className="milestone-period">{item.period}</span>
-                <strong>{item.role}</strong>
-                <span className="milestone-company">{item.company}</span>
-              </button>
-            ))}
-          </div>
-        </section>
-      )}
       <div className="work-list">
-        {filteredExperiences.map(({ item, index, contributions }) => {
+        {experiences.map((item, index) => {
           const isExpanded = expanded === item.company
+          const contributions = isExpanded
+            ? item.contributions
+            : item.contributions.slice(0, 5)
           return (
             <article
               className="work-panel"
               id={`work-role-${index}`}
               key={item.company}
-              tabIndex={-1}
             >
               <div className="work-panel-head">
                 <div className="company-icon">
@@ -435,13 +276,13 @@ function WorkScreen() {
                 <span>{item.duration}</span>
               </div>
               <div className="work-body">
-                <h3>What I worked on</h3>
+                <h3>Key contributions</h3>
                 <ul id={`work-details-${index}`}>
                   {contributions.map((contribution) => (
                     <li key={contribution}>{contribution}</li>
                   ))}
                 </ul>
-                {!searchTerm && item.contributions.length > 4 && (
+                {item.contributions.length > 5 && (
                   <button
                     className="show-more"
                     type="button"
@@ -466,31 +307,18 @@ function WorkScreen() {
             </article>
           )
         })}
-        {searchTerm && filteredExperiences.length === 0 && (
-          <p className="experience-no-results">
-            No contributions match “{query.trim()}”. Try a tool or task such as
-            Kotlin, APIs, or printers.
-          </p>
-        )}
       </div>
     </div>
   )
 }
 
 function ProjectsScreen() {
-  const [selectedFeature, setSelectedFeature] = useState(0)
-  const featureDetails = [
-    'Image processing and a convolutional neural network help identify disease in Arabica coffee leaf images.',
-    'The app assesses disease severity alongside the leaf disease finding.',
-    'Visual reports organize assessments into monthly and yearly views.',
-  ]
-
   return (
     <div className="screen-content">
       <ScreenHeading
         eyebrow="PROJECTS / 02"
-        title="Made to be useful."
-        description="A closer look at my public work, alongside the commercial work in my experience."
+        title="Featured project."
+        description="A closer look at my public Android project, alongside the commercial Android systems, iOS mobile apps, and websites I build."
       />
       {projects.map((project) => (
         <article className="project-feature" key={project.name}>
@@ -503,46 +331,24 @@ function ProjectsScreen() {
               </div>
               <div className="device-bottom" />
             </div>
-            <span className="art-label">ANDROID APP / 001</span>
+            <span className="art-label">ANDROID APP</span>
           </div>
           <div className="project-info">
             <span className="tiny-label">
               {project.type} · {project.period}
             </span>
-            <h2>
-              {project.name}
-              <ArrowUpRight size={30} />
-            </h2>
+            <h2>{project.name}</h2>
             <p>{project.description}</p>
-            <h3>Explore a feature</h3>
-            <div
-              className="project-feature-options"
-              role="group"
-              aria-label={`${project.name} features`}
-            >
-              {project.features.map((feature, index) => (
-                <button
-                  className={selectedFeature === index ? 'selected' : ''}
-                  key={feature}
-                  type="button"
-                  aria-pressed={selectedFeature === index}
-                  onClick={() => setSelectedFeature(index)}
-                >
+            <h3>Key features</h3>
+            <div className="project-feature-options">
+              {project.features.map((feature) => (
+                <div className="project-feature-item" key={feature}>
                   <span className="project-feature-check">
                     <Check size={15} />
                   </span>
-                  {feature}
-                  <ArrowRight size={15} />
-                </button>
+                  <span>{feature}</span>
+                </div>
               ))}
-            </div>
-            <div
-              className="project-feature-detail"
-              aria-live="polite"
-              aria-atomic="true"
-            >
-              <span className="tiny-label">FEATURE 0{selectedFeature + 1}</span>
-              <p>{featureDetails[selectedFeature]}</p>
             </div>
             <div className="tag-row">
               {project.technologies.map((tech) => (
@@ -550,14 +356,17 @@ function ProjectsScreen() {
               ))}
             </div>
             {project.repository && (
-              <a
-                className="primary-action repository-action"
-                href={project.repository}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Github size={18} /> View source code <ExternalLink size={17} />
-              </a>
+              <div className="project-source-actions">
+                <a
+                  className="primary-action repository-action"
+                  href={project.repository}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Github size={18} /> View source code{' '}
+                  <ExternalLink size={17} />
+                </a>
+              </div>
             )}
           </div>
         </article>
@@ -567,45 +376,15 @@ function ProjectsScreen() {
 }
 
 function StackScreen() {
-  const icons = [Smartphone, Layers3, Wifi, Code2]
-  const [selectedSkill, setSelectedSkill] = useState<string | null>(null)
-  const normalize = (value: string) => value.toLowerCase().replace(/[^a-z0-9]/g, '')
-  const matchesSkill = (technologies: string[], skill: string) => {
-    const selected = normalize(skill)
-    return technologies.some((technology) => {
-      const listedTerms = technology
-        .toLowerCase()
-        .split(/[^a-z0-9]+/)
-        .filter(Boolean)
-        .map(normalize)
-      return normalize(technology) === selected || listedTerms.includes(selected)
-    })
-  }
-  const relatedExperience = selectedSkill
-    ? experiences.filter((item) =>
-        matchesSkill(item.technologies, selectedSkill),
-      )
-    : []
-  const relatedProjects = selectedSkill
-    ? projects.filter((item) => matchesSkill(item.technologies, selectedSkill))
-    : []
+  const icons = [Smartphone, Layers3, Globe, Wifi]
 
   return (
     <div className="screen-content">
       <ScreenHeading
-        eyebrow="TOOLKIT / 03"
-        title="The tools behind it."
-        description="Technologies and workflows I use to build and maintain mobile products across Android and iOS."
+        eyebrow="STACK / 03"
+        title="Tech stack & tools."
+        description="The languages, frameworks, and tools I use across Android development, iOS mobile applications, websites, and integrations."
       />
-      <PlatformPlayground />
-      <ArchitectureExplorer />
-      <div className="skill-explorer-heading">
-        <div>
-          <span className="tiny-label">SKILL EXPLORER</span>
-          <h2>See the tools in context.</h2>
-        </div>
-        <p>Select a skill to find the roles and projects where it appears.</p>
-      </div>
       <div className="stack-grid">
         {skillGroups.map((group, index) => {
           const Icon = icons[index] ?? Code2
@@ -619,69 +398,19 @@ function StackScreen() {
               <p>{group.description}</p>
               <div className="tag-row">
                 {group.skills.map((skill) => (
-                  <button
-                    className={`skill-select-chip ${selectedSkill === skill ? 'selected' : ''}`}
-                    key={skill}
-                    type="button"
-                    aria-pressed={selectedSkill === skill}
-                    onClick={() =>
-                      setSelectedSkill(selectedSkill === skill ? null : skill)
-                    }
-                  >
-                    {skill}
-                  </button>
+                  <span key={skill}>{skill}</span>
                 ))}
               </div>
             </article>
           )
         })}
       </div>
-      {selectedSkill && (
-        <section className="skill-impact" aria-live="polite">
-          <div className="skill-impact-heading">
-            <div>
-              <span className="tiny-label">SELECTED SKILL</span>
-              <h3>{selectedSkill}</h3>
-            </div>
-            <button type="button" onClick={() => setSelectedSkill(null)}>
-              Clear selection
-            </button>
-          </div>
-          <div className="skill-impact-results">
-            <div>
-              <h4>Experience</h4>
-              {relatedExperience.length ? (
-                relatedExperience.map((item) => (
-                  <a href="#work" key={item.company}>
-                    <strong>{item.role}</strong><span>{item.company}</span>
-                  </a>
-                ))
-              ) : (
-                <p>No experience entry lists this skill yet.</p>
-              )}
-            </div>
-            <div>
-              <h4>Projects</h4>
-              {relatedProjects.length ? (
-                relatedProjects.map((item) => (
-                  <a href="#projects" key={item.name}>
-                    <strong>{item.name}</strong><span>{item.type}</span>
-                  </a>
-                ))
-              ) : (
-                <p>No project entry lists this skill yet.</p>
-              )}
-            </div>
-          </div>
-        </section>
-      )}
     </div>
   )
 }
 
 function ProfileScreen() {
   const [copied, setCopied] = useState(false)
-  const [contactSaved, setContactSaved] = useState(false)
   async function copyEmail() {
     try {
       await navigator.clipboard.writeText(profile.email)
@@ -691,45 +420,12 @@ function ProfileScreen() {
       window.location.href = `mailto:${profile.email}`
     }
   }
-  function downloadContact() {
-    const nameParts = profile.name.trim().split(/\s+/)
-    const familyName = nameParts.pop() ?? ''
-    const givenName = nameParts.shift() ?? ''
-    const additionalNames = nameParts.join(' ')
-    const escapeField = (value: string) =>
-      value
-        .replace(/\\/g, '\\\\')
-        .replace(/\n/g, '\\n')
-        .replace(/,/g, '\\,')
-        .replace(/;/g, '\\;')
-    const vCard = [
-      'BEGIN:VCARD',
-      'VERSION:3.0',
-      `N:${escapeField(familyName)};${escapeField(givenName)};${escapeField(
-        additionalNames,
-      )};;`,
-      `FN:${escapeField(profile.name)}`,
-      `TITLE:${escapeField(profile.title)}`,
-      `EMAIL;TYPE=INTERNET:${escapeField(profile.email)}`,
-      `URL:${window.location.origin}`,
-      `X-SOCIALPROFILE;TYPE=linkedin:${profile.socials[1].url}`,
-      'END:VCARD',
-    ].join('\r\n')
-    const url = URL.createObjectURL(new Blob([vCard], { type: 'text/vcard' }))
-    const link = document.createElement('a')
-    link.href = url
-    link.download = 'Dan-Carlo-Magpantay.vcf'
-    link.click()
-    window.setTimeout(() => URL.revokeObjectURL(url), 1000)
-    setContactSaved(true)
-    window.setTimeout(() => setContactSaved(false), 2500)
-  }
   return (
     <div className="screen-content">
       <ScreenHeading
         eyebrow="PROFILE / 04"
-        title="A little about me."
-        description="Mobile software engineer, practical problem solver, and a believer in software that works beyond the demo."
+        title="About & contact."
+        description="Android Developer by primary specialization and current full-time experience—also building iOS mobile applications and websites."
       />
       <div className="profile-grid">
         <div className="profile-main">
@@ -738,7 +434,9 @@ function ProfileScreen() {
               <img src="/profile.webp" alt="Portrait of Dan Carlo Magpantay" />
             </div>
             <div>
-              <span className="tiny-label">HELLO, I’M DAN CARLO</span>
+              <span className="tiny-label">
+                SOFTWARE ENGINEER · ANDROID DEVELOPER
+              </span>
               <h2>{profile.name}</h2>
               <p>{profile.summary}</p>
             </div>
@@ -776,13 +474,14 @@ function ProfileScreen() {
           </span>
           <span className="tiny-label">LET’S CONNECT</span>
           <h2>
-            Have something
+            Get in
             <br />
-            in mind?
+            touch.
           </h2>
           <p>
-            Whether it’s a mobile opportunity or an engineering conversation,
-            I’d love to hear from you.
+            Whether you’re hiring an Android developer or software engineer, or
+            need an Android app, iOS mobile application, or website built, I’d
+            love to hear from you.
           </p>
           <a className="contact-mail" href={`mailto:${profile.email}`}>
             Send an email <ArrowUpRight size={18} />
@@ -795,15 +494,6 @@ function ProfileScreen() {
           >
             <span>{profile.email}</span>
             {copied ? <Check size={17} /> : <Copy size={17} />}
-          </button>
-          <button
-            type="button"
-            className="save-contact"
-            onClick={downloadContact}
-            aria-live="polite"
-          >
-            {contactSaved ? <Check size={17} /> : <Contact size={17} />}
-            {contactSaved ? 'Contact card downloaded' : 'Save contact card'}
           </button>
           <div className="social-links">
             <a
@@ -829,13 +519,7 @@ function ProfileScreen() {
 
 export default function App() {
   const [screen, setScreen] = useState<Screen>(getScreen)
-  const [commandPaletteOpen, setCommandPaletteOpen] = useState(false)
-  const commandTriggerRef = useRef<HTMLButtonElement>(null)
   const { theme, toggleTheme } = useTheme()
-  const closeCommandPalette = () => {
-    setCommandPaletteOpen(false)
-    window.requestAnimationFrame(() => commandTriggerRef.current?.focus())
-  }
   useEffect(() => {
     const update = () => {
       setScreen(getScreen())
@@ -848,18 +532,15 @@ export default function App() {
   useEffect(() => {
     document.title = `${screenTitles[screen]} · Dan Carlo Magpantay`
   }, [screen])
-  useEffect(() => {
-    const openCommandPalette = (event: KeyboardEvent) => {
-      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
-        event.preventDefault()
-        setCommandPaletteOpen(true)
-      }
-    }
-    window.addEventListener('keydown', openCommandPalette)
-    return () => window.removeEventListener('keydown', openCommandPalette)
-  }, [])
   return (
     <div className="app-shell">
+      <div className="ambient-canvas" aria-hidden="true">
+        <div className="ambient-orb orb-1" />
+        <div className="ambient-orb orb-2" />
+        <div className="ambient-orb orb-3" />
+        <div className="ambient-orb orb-4" />
+        <div className="ambient-grid" />
+      </div>
       <button
         className="skip-link"
         type="button"
@@ -873,7 +554,7 @@ export default function App() {
             D<span>.</span>
           </span>
           <span className="brand-copy">
-            Dan Carlo<small>MOBILE SOFTWARE ENGINEER</small>
+            Dan Carlo<small>SOFTWARE ENGINEER · ANDROID</small>
           </span>
         </AppLink>
         <p className="rail-label">EXPLORE</p>
@@ -885,11 +566,6 @@ export default function App() {
           <a href="/resume.pdf" download="Dan-Carlo-Magpantay-Resume.pdf">
             <Download size={18} /> Résumé <ArrowUpRight size={15} />
           </a>
-          <div className="rail-signature">
-            Designed like an app.
-            <br />
-            Built for the web.
-          </div>
         </div>
       </aside>
       <div className="app-area">
@@ -911,17 +587,6 @@ export default function App() {
             </span>
             <button
               type="button"
-              className="topbar-icon command-trigger"
-              ref={commandTriggerRef}
-              onClick={() => setCommandPaletteOpen(true)}
-              aria-label="Open quick actions"
-              aria-keyshortcuts="Meta+K Control+K"
-              title="Quick actions · ⌘K / Ctrl K"
-            >
-              <Search size={19} />
-            </button>
-            <button
-              type="button"
               className="topbar-icon"
               onClick={(event) =>
                 toggleTheme({ x: event.clientX, y: event.clientY })
@@ -929,7 +594,7 @@ export default function App() {
               aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
               title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
             >
-              {theme === 'dark' ? <Sun size={19} /> : <Moon size={19} />}
+              {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
             </button>
             <AppLink screen="profile" className="topbar-avatar">
               <img src="/profile.webp" alt="Profile" />
@@ -947,12 +612,7 @@ export default function App() {
       <div className="bottom-nav">
         <Nav screen={screen} />
       </div>
-      <CommandPalette
-        open={commandPaletteOpen}
-        theme={theme}
-        onClose={closeCommandPalette}
-        onToggleTheme={() => toggleTheme()}
-      />
+      <MascotPet />
     </div>
   )
 }

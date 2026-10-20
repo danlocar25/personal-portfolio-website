@@ -1,5 +1,27 @@
 import type { Experience } from '../types/portfolio'
 
+function formatDurationFrom(startYear: number, startMonth: number): string {
+  const now = new Date()
+  const totalMonths = Math.max(
+    1,
+    (now.getFullYear() - startYear) * 12 +
+      (now.getMonth() + 1 - startMonth) +
+      1,
+  )
+  const years = Math.floor(totalMonths / 12)
+  const months = totalMonths % 12
+  const parts: string[] = []
+
+  if (years > 0) {
+    parts.push(`${years} ${years === 1 ? 'yr' : 'yrs'}`)
+  }
+  if (months > 0) {
+    parts.push(`${months} ${months === 1 ? 'mo' : 'mos'}`)
+  }
+
+  return parts.join(' ')
+}
+
 export const experiences: Experience[] = [
   {
     role: 'Android Developer',
@@ -7,7 +29,7 @@ export const experiences: Experience[] = [
     logo: '/jimac-logo.jpeg',
     employmentType: 'Full-time',
     period: 'Oct 2024 — Present',
-    duration: '2 yrs 1 mo',
+    duration: formatDurationFrom(2024, 10),
     location: 'Quezon City, National Capital Region, Philippines',
     workMode: 'On-site',
     contributions: [
@@ -28,15 +50,26 @@ export const experiences: Experience[] = [
       'Collaborated with backend developers and QA teams throughout the software development lifecycle.',
     ],
     technologies: [
-      'Android Studio',
-      'Java',
+      'Android',
       'Kotlin',
+      'Java',
+      'Android SDK',
+      'Jetpack Compose',
+      'XML Layouts',
       'MVVM',
       'Android Jetpack',
       'REST APIs',
+      'Retrofit',
+      'OkHttp',
+      'RabbitMQ',
       'Room / SQLite',
       'Coroutines / Flow',
+      'MySQL',
       'POS hardware',
+      'Android Studio',
+      'Gradle',
+      'SVN',
+      'GitLab / Gitea',
     ],
   },
   {

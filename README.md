@@ -1,6 +1,6 @@
-# Dan Carlo Magpantay — Mobile Software Engineer Portfolio
+# Dan Carlo Magpantay — Software Engineer & Android Developer Portfolio
 
-A responsive personal portfolio for Dan Carlo Magpantay, focused on Android development, commercial POS systems, integrations, and maintainable software. The content is grounded in Dan Carlo's resume and an existing portfolio project.
+A responsive personal portfolio for Dan Carlo Magpantay—a Software Engineer with Android development as his primary specialization and current professional experience (commercial POS systems, business apps, and integrations), who also builds iOS mobile applications and websites.
 
 ## Technology
 
@@ -11,7 +11,7 @@ A responsive personal portfolio for Dan Carlo Magpantay, focused on Android deve
 - Lucide React icons
 - ESLint and Prettier
 
-This is a static, single-page site. Section navigation uses native anchor links, so it does not need a router or server API.
+The portfolio is a single-page Vite site with native anchor navigation and no server API.
 
 ## Features
 
@@ -21,6 +21,7 @@ This is a static, single-page site. Section navigation uses native anchor links,
 - Optimized local portrait and downloadable resume
 - Android-inspired orbital details, project scan feedback, and restrained card and navigation motion
 - Copy-email action and direct GitHub, LinkedIn, and email links
+- Animated Android and iOS mascot with a small interactive greeting
 - Semantic headings, keyboard focus styles, image descriptions, and reduced-motion support
 - Page title, description, Open Graph metadata, favicon, and `robots.txt`
 
@@ -33,6 +34,7 @@ public/                  Resume, portrait, favicon, robots.txt
 src/
   app/                   Page composition
   components/layout/     Header and footer
+  components/            Shared UI, including the animated mobile mascot
   components/ui/         Shared presentation components
   data/                  Editable portfolio content
   hooks/                 Theme state and persistence

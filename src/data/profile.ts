@@ -2,12 +2,12 @@ import type { Profile } from '../types/portfolio'
 
 export const profile: Profile = {
   name: 'Dan Carlo Magpantay',
-  title: 'Mobile Software Engineer',
+  title: 'Software Engineer · Android Developer',
   email: 'dancarlom03@gmail.com',
   introduction:
-    'I build dependable mobile experiences for Android and iOS, including cross-platform apps with Kotlin Multiplatform and React Native.',
+    'I’m a Software Engineer with Android development as my primary specialization and current professional focus—while also building iOS mobile applications and modern websites.',
   summary:
-    'Mobile Software Engineer with two years of professional software development experience, focused on commercial POS systems and business applications. I build for Android and iOS, with cross-platform experience using Kotlin Multiplatform and React Native, alongside APIs and connected hardware.',
+    'Software Engineer with two years of professional software development experience. My primary specialization and current full-time role is Android development—engineering commercial Android POS systems, business applications, REST API integrations, and connected hardware using Java and Kotlin. Beyond Android, I also build iOS mobile applications (including cross-platform solutions with Kotlin Multiplatform and React Native) and full-stack websites and web applications.',
   socials: [
     { label: 'GitHub', url: 'https://github.com/danlocar25' },
     {

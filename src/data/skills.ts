@@ -2,54 +2,62 @@ import type { SkillGroup } from '../types/portfolio'
 
 export const skillGroups: SkillGroup[] = [
   {
-    title: 'Mobile platforms',
+    title: 'Android Development',
     description:
-      'Building mobile experiences for Android and iOS, including shared-code apps.',
+      'Primary specialization for building commercial Android POS and business applications.',
     skills: [
-      'Android',
-      'iOS',
-      'Kotlin Multiplatform',
-      'React Native',
-      'Java',
       'Kotlin',
-      'TypeScript',
-      'Python',
-      'JavaScript',
+      'Java',
       'Android SDK',
       'Jetpack Compose',
       'XML Layouts',
-    ],
-  },
-  {
-    title: 'Architecture & data',
-    description: 'Patterns and persistence for software that lasts.',
-    skills: [
+      'Android Jetpack',
       'MVVM',
-      'Modular development',
-      'Room',
-      'SQLite',
-      'MySQL',
-      'Kotlin Coroutines',
-      'Kotlin Flow',
+      'Coroutines & Flow',
+      'Room / SQLite',
+      'WorkManager',
+      'LiveData',
     ],
   },
   {
-    title: 'Integrations & POS',
-    description: 'Connecting apps to services and devices.',
+    title: 'iOS & Cross-Platform Mobile',
+    description:
+      'Building iOS mobile applications and shared-code mobile experiences.',
+    skills: ['iOS', 'Kotlin Multiplatform', 'React Native'],
+  },
+  {
+    title: 'Web & Backend',
+    description:
+      'Developing responsive websites, web applications, and database-driven backends.',
+    skills: [
+      'React',
+      'TypeScript',
+      'JavaScript',
+      'Python',
+      'Django',
+      'Spring Boot',
+      'Express',
+      'ASP.NET',
+      'PostgreSQL',
+      'MySQL',
+      'MongoDB',
+      'Firebase',
+      'Tailwind CSS',
+      'Bootstrap',
+      'jQuery',
+    ],
+  },
+  {
+    title: 'APIs, POS & Tools',
+    description:
+      'Integrating services, POS hardware, and everyday development workflows.',
     skills: [
       'REST APIs',
       'Retrofit',
       'OkHttp',
       'RabbitMQ',
       'JSON / Gson',
-      'Payment devices',
-      'Printers & scanners',
-    ],
-  },
-  {
-    title: 'Workflow & tools',
-    description: 'Everyday development, debugging, and collaboration.',
-    skills: [
+      'POS Hardware & SDKs',
       'Android Studio',
       'Gradle',
       'Git / GitHub',
@@ -57,7 +65,6 @@ export const skillGroups: SkillGroup[] = [
       'SVN',
       'Postman',
       'Firebase Crashlytics',
-      'Android Profiler',
     ],
   },
 ]

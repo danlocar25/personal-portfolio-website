@@ -18,7 +18,7 @@ export function Skills() {
             id="skills-title"
             eyebrow="02 / SKILLS"
             title="A practical toolkit."
-            description="Technologies and workflows I use across Android, iOS, cross-platform development, integrations, and delivery."
+            description="Technologies and workflows I use with Android development as my primary specialization, alongside iOS mobile applications and websites."
           />
         </Reveal>
         <div className="skills-grid">

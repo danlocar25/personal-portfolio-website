@@ -56,7 +56,7 @@ export function Header({ theme, toggleTheme }: HeaderProps) {
             D<span>.</span>
           </span>
           <span className="brand-name">
-            Dan Carlo<span> / Mobile Software Engineer</span>
+            Dan Carlo<span> / Software Engineer · Android Developer</span>
           </span>
         </a>
         <nav className="desktop-nav" aria-label="Main navigation">

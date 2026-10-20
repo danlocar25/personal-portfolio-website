@@ -41,7 +41,7 @@ export function Projects() {
             id="projects-title"
             eyebrow="04 / PROJECTS"
             title="Selected work."
-            description="A public Android project alongside commercial mobile software work and cross-platform experience."
+            description="A public Android project alongside commercial Android POS systems, iOS mobile applications, and websites."
           />
         </Reveal>
         {projects.map((project) => (

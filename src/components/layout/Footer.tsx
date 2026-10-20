@@ -9,7 +9,7 @@ export function Footer() {
           <a className="footer-brand" href="#top">
             Dan Carlo Magpantay<span className="accent-dot">.</span>
           </a>
-          <p>Mobile Software Engineer</p>
+          <p>Software Engineer · Android Developer</p>
         </div>
         <div className="footer-right">
           <div className="footer-links">

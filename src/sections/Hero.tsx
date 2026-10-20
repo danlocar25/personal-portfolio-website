@@ -24,8 +24,8 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <span className="availability-dot" /> MOBILE SOFTWARE ENGINEER ·
-            ANDROID · iOS
+            <span className="availability-dot" /> SOFTWARE ENGINEER · ANDROID
+            SPECIALIST · iOS &amp; WEB
           </motion.div>
           <motion.h1
             id="hero-title"
@@ -33,9 +33,9 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, delay: 0.08 }}
           >
-            Building mobile
+            Software Engineer for
             <br />
-            software that <em>works everywhere.</em>
+            <em>Android, iOS &amp; Web.</em>
           </motion.h1>
           <motion.p
             className="hero-intro"
@@ -114,9 +114,9 @@ export function Hero() {
               <span className="label-orbit" />
             </span>
             <span>
-              ANDROID / iOS
+              ANDROID SPECIALIST
               <br />
-              <strong>KMP · REACT NATIVE · BUILD</strong>
+              <strong>ANDROID · iOS · WEBSITES</strong>
             </span>
           </div>
           <div className="floating-cross cross-one" aria-hidden="true">

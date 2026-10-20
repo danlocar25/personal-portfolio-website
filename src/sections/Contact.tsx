@@ -36,8 +36,9 @@ export function Contact() {
               <em>that matters.</em>
             </h2>
             <p className="contact-description">
-              Have a mobile opportunity, a product challenge, or a good
-              engineering conversation in mind? I’d be glad to hear from you.
+              Whether you’re hiring a Software Engineer or Android Developer, or
+              need an Android app, iOS mobile application, or website built, I’d
+              be glad to hear from you.
             </p>
             <div className="contact-actions">
               <a

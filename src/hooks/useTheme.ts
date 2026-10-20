@@ -15,7 +15,7 @@ export function useTheme() {
     document.documentElement.dataset.theme = theme
     document
       .querySelector('meta[name="theme-color"]')
-      ?.setAttribute('content', theme === 'dark' ? '#101813' : '#f4f5f1')
+      ?.setAttribute('content', theme === 'dark' ? '#14171c' : '#f2f4f7')
     try {
       window.localStorage.setItem('portfolio-theme', theme)
     } catch {
@@ -41,8 +41,14 @@ export function useTheme() {
     }
 
     const root = document.documentElement
-    root.style.setProperty('--theme-origin-x', `${origin?.x ?? innerWidth / 2}px`)
-    root.style.setProperty('--theme-origin-y', `${origin?.y ?? innerHeight / 2}px`)
+    root.style.setProperty(
+      '--theme-origin-x',
+      `${origin?.x ?? innerWidth / 2}px`,
+    )
+    root.style.setProperty(
+      '--theme-origin-y',
+      `${origin?.y ?? innerHeight / 2}px`,
+    )
 
     try {
       const transition = documentWithTransition.startViewTransition(updateTheme)

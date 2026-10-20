@@ -6,18 +6,21 @@ import { profile } from '../data/profile'
 const focuses = [
   {
     icon: Smartphone,
-    title: 'Android & iOS',
-    detail: 'Kotlin Multiplatform, React Native, and practical mobile engineering.',
+    title: 'Android Development',
+    detail:
+      'Commercial Android POS systems, business apps, Java, Kotlin, MVVM, and Jetpack.',
   },
   {
     icon: Cable,
-    title: 'Connected systems',
-    detail: 'POS hardware, REST APIs, payments, and third-party services.',
+    title: 'iOS Apps & Websites',
+    detail:
+      'iOS mobile applications (KMP, React Native) and full-stack websites with React, TypeScript, and Django.',
   },
   {
     icon: Blocks,
-    title: 'Built to last',
-    detail: 'Modular code, careful debugging, and maintainable architecture.',
+    title: 'Connected Systems',
+    detail:
+      'REST APIs, POS hardware, payment gateways, and maintainable software architecture.',
   },
 ]
 

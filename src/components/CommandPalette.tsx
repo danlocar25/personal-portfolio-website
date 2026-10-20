@@ -231,9 +231,15 @@ export function CommandPalette({
           )}
         </div>
         <footer className="command-footer">
-          <span><kbd>↑</kbd> <kbd>↓</kbd> to navigate</span>
-          <span><kbd>↵</kbd> to select</span>
-          <span className="command-brand">D<span>.</span></span>
+          <span>
+            <kbd>↑</kbd> <kbd>↓</kbd> to navigate
+          </span>
+          <span>
+            <kbd>↵</kbd> to select
+          </span>
+          <span className="command-brand">
+            D<span>.</span>
+          </span>
         </footer>
       </section>
     </div>
