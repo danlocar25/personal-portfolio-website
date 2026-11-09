@@ -1,13 +1,168 @@
-import { useState } from 'react'
+import {
+  useEffect,
+  useRef,
+  useState,
+  type CSSProperties,
+  type PointerEvent,
+} from 'react'
 import { X } from 'lucide-react'
+
+type Position = { x: number; y: number }
+
+const POSITION_KEY = 'mascot-position'
+const VIEWPORT_MARGIN = 12
 
 export function MascotPet() {
   const [greetingOpen, setGreetingOpen] = useState(false)
+  const [position, setPosition] = useState<Position | null>(null)
+  const [dragging, setDragging] = useState(false)
+  const [greetingPosition, setGreetingPosition] = useState<CSSProperties>({})
+  const launcherRef = useRef<HTMLButtonElement>(null)
+  const positionRef = useRef<Position | null>(null)
+  const dragRef = useRef<{
+    pointerId: number
+    startX: number
+    startY: number
+    originX: number
+    originY: number
+    moved: boolean
+  } | null>(null)
+  const suppressClickRef = useRef(false)
+
+  const clampPosition = (point: Position): Position => {
+    const launcher = launcherRef.current
+    return {
+      x: Math.max(
+        VIEWPORT_MARGIN,
+        Math.min(
+          point.x,
+          window.innerWidth - (launcher?.offsetWidth ?? 0) - VIEWPORT_MARGIN,
+        ),
+      ),
+      y: Math.max(
+        VIEWPORT_MARGIN,
+        Math.min(
+          point.y,
+          window.innerHeight - (launcher?.offsetHeight ?? 0) - VIEWPORT_MARGIN,
+        ),
+      ),
+    }
+  }
+
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem(POSITION_KEY)
+      if (saved) {
+        const point = JSON.parse(saved) as Position
+        if (Number.isFinite(point.x) && Number.isFinite(point.y)) {
+          const clamped = clampPosition(point)
+          positionRef.current = clamped
+          setPosition(clamped)
+        }
+      }
+    } catch {
+      // Storage may be unavailable; dragging still works for this visit.
+    }
+
+    const handleResize = () => {
+      if (!positionRef.current) return
+      const clamped = clampPosition(positionRef.current)
+      positionRef.current = clamped
+      setPosition(clamped)
+    }
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
+  const handlePointerDown = (event: PointerEvent<HTMLButtonElement>) => {
+    if (event.button !== 0 || dragRef.current) return
+    const rect = event.currentTarget.getBoundingClientRect()
+    dragRef.current = {
+      pointerId: event.pointerId,
+      startX: event.clientX,
+      startY: event.clientY,
+      originX: rect.left,
+      originY: rect.top,
+      moved: false,
+    }
+    event.currentTarget.setPointerCapture(event.pointerId)
+  }
+
+  const handlePointerMove = (event: PointerEvent<HTMLButtonElement>) => {
+    const drag = dragRef.current
+    if (!drag || drag.pointerId !== event.pointerId) return
+    const dx = event.clientX - drag.startX
+    const dy = event.clientY - drag.startY
+    if (!drag.moved && Math.hypot(dx, dy) < 5) return
+    if (!drag.moved) {
+      drag.moved = true
+      setDragging(true)
+      setGreetingOpen(false)
+    }
+    const next = clampPosition({ x: drag.originX + dx, y: drag.originY + dy })
+    positionRef.current = next
+    setPosition(next)
+  }
+
+  const handlePointerEnd = (event: PointerEvent<HTMLButtonElement>) => {
+    const drag = dragRef.current
+    if (!drag || drag.pointerId !== event.pointerId) return
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId)
+    }
+    if (drag.moved && positionRef.current) {
+      suppressClickRef.current = true
+      window.setTimeout(() => {
+        suppressClickRef.current = false
+      }, 0)
+      try {
+        localStorage.setItem(POSITION_KEY, JSON.stringify(positionRef.current))
+      } catch {
+        // Keep the position for this visit if storage is unavailable.
+      }
+    }
+    dragRef.current = null
+    setDragging(false)
+  }
+
+  const toggleGreeting = () => {
+    if (suppressClickRef.current) {
+      suppressClickRef.current = false
+      return
+    }
+    if (greetingOpen) {
+      setGreetingOpen(false)
+      return
+    }
+    const rect = launcherRef.current?.getBoundingClientRect()
+    if (rect) {
+      const width = Math.min(240, window.innerWidth - 2 * VIEWPORT_MARGIN)
+      const left = Math.max(
+        VIEWPORT_MARGIN,
+        Math.min(
+          rect.left + rect.width / 2 - width / 2,
+          window.innerWidth - width - VIEWPORT_MARGIN,
+        ),
+      )
+      const above =
+        rect.top >= 120 || rect.top > window.innerHeight - rect.bottom
+      setGreetingPosition({
+        left: left - rect.left,
+        right: 'auto',
+        top: above ? 'auto' : rect.height + 10,
+        bottom: above ? rect.height + 10 : 'auto',
+      })
+    }
+    setGreetingOpen(true)
+  }
 
   return (
-    <div className="mascot-pet">
+    <div
+      className={`mascot-pet ${position ? 'mascot-pet-moved' : ''}`}
+      style={position ? { left: position.x, top: position.y } : undefined}
+    >
       {greetingOpen && (
-        <div className="mascot-greeting" role="status">
+        <div className="mascot-greeting" role="status" style={greetingPosition}>
           <button
             className="mascot-greeting-close"
             type="button"
@@ -24,14 +179,19 @@ export function MascotPet() {
         </div>
       )}
       <button
-        className={`mascot-launcher ${greetingOpen ? 'greeting-open' : ''}`}
+        ref={launcherRef}
+        className={`mascot-launcher ${greetingOpen ? 'greeting-open' : ''} ${dragging ? 'is-dragging' : ''}`}
         type="button"
-        onClick={() => setGreetingOpen((open) => !open)}
+        onClick={toggleGreeting}
+        onPointerDown={handlePointerDown}
+        onPointerMove={handlePointerMove}
+        onPointerUp={handlePointerEnd}
+        onPointerCancel={handlePointerEnd}
         aria-expanded={greetingOpen}
         aria-label={
           greetingOpen
             ? 'Hide mascot greeting'
-            : 'Meet Dan’s Android, iOS, and Web mascots'
+            : 'Meet Dan’s Android, iOS, and Web mascots. Drag to move.'
         }
       >
         <svg
